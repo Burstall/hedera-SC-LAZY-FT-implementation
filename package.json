@@ -1,0 +1,34 @@
+{
+  "name": "hedera-ft-sc-implementation",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx hardhat test",
+    "deploy": "npx hardhat run scripts/deploy.js",
+    "interact": "npx hardhat run scripts/interact.js",
+    "mint": "npx hardhat run scripts/mintToken.js",
+    "logs": "node scripts/getContractLogs.js",
+    "solhint": "solhint -f table contracts/**/*.sol"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@hashgraph/sdk": "^2.17.1",
+    "abi-decoder": "^2.4.0",
+    "axios": "^0.27.2",
+    "dotenv": "^16.0.1",
+    "readline-sync": "^1.4.10"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^1.0.2",
+    "@nomiclabs/hardhat-web3": "^2.0.0",
+    "@openzeppelin/contracts": "^4.7.3",
+    "chai": "^4.3.6",
+    "eslint": "^8.21.0",
+    "hardhat": "^2.10.1",
+    "solhint": "^3.3.7",
+    "web3": "^1.7.5"
+  }
+}
