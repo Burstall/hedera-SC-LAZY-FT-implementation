@@ -37,6 +37,7 @@ require('dotenv').config();
 const operatorKey = PrivateKey.fromString(process.env.PRIVATE_KEY);
 const operatorId = AccountId.fromString(process.env.ACCOUNT_ID);
 const contractName = process.env.CONTRACT_NAME ?? null;
+const env = process.env.ENVIRONMENT ?? null;
 
 const addressRegex = /(\d+\.\d+\.[1-9]\d+)/i;
 
@@ -52,9 +53,7 @@ let tokenDecimal;
 let contractFTSupply = 0;
 let operatorAcctFTSupply = 0;
 const amountForBob = 5;
-
-
-const client = Client.forTestnet().setOperator(operatorId, operatorKey);
+let client;
 
 describe('Deployment: ', function() {
 	it('Should deploy the contract and setup conditions', async function() {
@@ -65,6 +64,21 @@ describe('Deployment: ', function() {
 		if (operatorKey === undefined || operatorKey == null || operatorId === undefined || operatorId == null) {
 			console.log('Environment required, please specify PRIVATE_KEY & ACCOUNT_ID in the .env file');
 			process.exit(1);
+		}
+
+		console.log('\n-Using ENIVRONMENT:', env);
+
+		if (env.toUpperCase() == 'TEST') {
+			client = Client.forTestnet();
+			console.log('minting in *TESTNET*');
+		}
+		else if (env.toUpperCase() == 'MAIN') {
+			client = Client.forMainnet();
+			console.log('minting in *MAINNET*');
+		}
+		else {
+			console.log('ERROR: Must specify either MAIN or TEST as environment in .env file');
+			return;
 		}
 
 		console.log('\n-Testing:', contractName);
