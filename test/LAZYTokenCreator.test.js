@@ -70,28 +70,16 @@ describe('Deployment: ', function() {
 
 		if (env.toUpperCase() == 'TEST') {
 			client = Client.forTestnet();
-			console.log('minting in *TESTNET*');
+			console.log('testing in *TESTNET*');
 		}
 		else if (env.toUpperCase() == 'MAIN') {
 			client = Client.forMainnet();
-			console.log('minting in *MAINNET*');
+			console.log('testing in *MAINNET*');
 		}
 		else {
 			console.log('ERROR: Must specify either MAIN or TEST as environment in .env file');
 			return;
 		}
-
-		console.log('\n-Testing:', contractName);
-		// create Alice account
-		alicePK = PrivateKey.generateED25519();
-		aliceId = await accountCreator(alicePK, 60);
-		console.log('Alice account ID:', aliceId.toString());
-
-		// create Bob account
-		bobPk = PrivateKey.generateED25519();
-		bobId = await accountCreator(bobPk, 60);
-		console.log('Bob account ID:', bobId.toString());
-
 
 		client.setOperator(operatorId, operatorKey);
 		// deploy the contract
@@ -110,6 +98,17 @@ describe('Deployment: ', function() {
 		await contractDeployFcn(contractBytecode, gasLimit);
 
 		console.log(`Contract created with ID: ${contractId} / ${contractAddress}`);
+
+		console.log('\n-Testing:', contractName);
+		// create Alice account
+		alicePK = PrivateKey.generateED25519();
+		aliceId = await accountCreator(alicePK, 10);
+		console.log('Alice account ID:', aliceId.toString());
+
+		// create Bob account
+		bobPk = PrivateKey.generateED25519();
+		bobId = await accountCreator(bobPk, 10);
+		console.log('Bob account ID:', bobId.toString());
 
 		expect(contractId.toString().match(addressRegex).length == 2).to.be.true;
 	});
@@ -396,7 +395,7 @@ describe('Interaction: ', function() {
  * @param {number} gasLim gas limit as a number
  */
 async function contractDeployFcn(bytecode, gasLim) {
-	const contractCreateTx = new ContractCreateFlow()
+	const contractCreateTx = await new ContractCreateFlow()
 		.setBytecode(bytecode)
 		.setGas(gasLim);
 	const contractCreateSubmit = await contractCreateTx.execute(client);
