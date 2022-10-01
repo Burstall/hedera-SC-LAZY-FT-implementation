@@ -103,12 +103,12 @@ describe('Deployment: ', function() {
 		// create Alice account
 		alicePK = PrivateKey.generateED25519();
 		aliceId = await accountCreator(alicePK, 10);
-		console.log('Alice account ID:', aliceId.toString(), '\nkey:', alicePK);
+		console.log('Alice account ID:', aliceId.toString(), '\nkey:', alicePK.toString());
 
 		// create Bob account
 		bobPk = PrivateKey.generateED25519();
 		bobId = await accountCreator(bobPk, 10);
-		console.log('Bob account ID:', bobId.toString(), '\nkey:', bobPk);
+		console.log('Bob account ID:', bobId.toString(), '\nkey:', bobPk.toString());
 
 		expect(contractId.toString().match(addressRegex).length == 2).to.be.true;
 	});
