@@ -106,12 +106,14 @@ const main = async () => {
 					.addUint32(tokenMaxSupply));
 
 		if (multiSig) {
+			const multiSigAccount = AccountId.fromString(process.env.MULTI_SIG_WALLET);
+			console.log('Using multisig account:', multiSigAccount.toString());
 			const nodeId = [];
 			nodeId.push(new AccountId(3));
 
 			createToken
 				.setNodeAccountIds(nodeId)
-				.setTransactionId(TransactionId.generate(operatorId))
+				.setTransactionId(TransactionId.generate(multiSigAccount))
 				.freezeWith(client);
 
 			createToken = await requestMultiSig(createToken);
