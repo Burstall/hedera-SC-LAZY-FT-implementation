@@ -38,7 +38,7 @@ const main = async () => {
 	if (getArgFlag('h')) {
 		console.log('Usage: node adjustWL.js [-add 0.0.XXXX] [-rem 0.0.XXX] [-check] [-multisig]');
 		console.log('       -add			add account');
-		console.log('       -remove			remove account');
+		console.log('       -rem			remove account');
 		console.log('       -check			query WL');
 		console.log('       -multisig		if multisig needed');
 		process.exit(0);
