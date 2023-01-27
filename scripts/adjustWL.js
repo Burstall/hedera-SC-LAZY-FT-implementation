@@ -130,7 +130,7 @@ async function getAllowanceWL() {
 		const contractCall = await new ContractCallQuery()
 			.setContractId(contractId)
 			.setFunctionParameters(functionCallAsUint8Array)
-			.setQueryPayment(new Hbar(2, HbarUnit.Hbar))
+			.setQueryPayment(new Hbar(0.5, HbarUnit.Hbar))
 			.setGas(100000)
 			.execute(client);
 
