@@ -11,6 +11,7 @@ const {
 	TransactionId,
 	// eslint-disable-next-line no-unused-vars
 	TransactionReceipt,
+	HbarUnit,
 } = require('@hashgraph/sdk');
 require('dotenv').config();
 const fs = require('fs');
@@ -129,7 +130,7 @@ async function getAllowanceWL() {
 		const contractCall = await new ContractCallQuery()
 			.setContractId(contractId)
 			.setFunctionParameters(functionCallAsUint8Array)
-			.setMaxQueryPayment(new Hbar(2))
+			.setQueryPayment(new Hbar(2, HbarUnit.Hbar))
 			.setGas(100000)
 			.execute(client);
 
