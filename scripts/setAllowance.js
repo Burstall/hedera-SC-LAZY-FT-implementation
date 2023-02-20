@@ -165,6 +165,12 @@ async function contractExecuteFcn(cId, gasLim, fcnName, params, amountHbar) {
 
 	const exectuedTx = await signedTx.execute(client);
 
+	if (isMultiSig) {
+		const payerForRecordAccount = AccountId.fromString(process.env.PAYER_FOR_RECORD);
+		client.setOperator(payerForRecordAccount, operatorKey);
+	}
+
+
 	// get the results of the function call;
 	const record = await exectuedTx.getRecord(client);
 	const contractResults = decodeFunctionResult(fcnName, record.contractFunctionResult.bytes);
